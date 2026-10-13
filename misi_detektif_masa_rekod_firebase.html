@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misi Detektif Masa</title>
+<style>
+:root{--navy:#111b4a;--purple:#7657e8;--cyan:#58e3ed;--gold:#ffd45e;--pink:#ff6fae;--white:#f8fbff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:ui-rounded,"Trebuchet MS",Arial,sans-serif;color:var(--white);background:radial-gradient(circle at 15% 15%,#354c9a 0,transparent 28%),radial-gradient(circle at 85% 10%,#6b3d9f 0,transparent 30%),linear-gradient(145deg,#10153b,#20245f 55%,#301c5b);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#9cecff 1px,transparent 1px);background-size:73px 73px,119px 119px;background-position:0 0,30px 45px;opacity:.28;animation:stars 18s linear infinite}
+@keyframes stars{to{background-position:73px 73px,-89px 164px}}
+.wrap{width:min(980px,94vw);margin:0 auto;padding:22px 0 38px;position:relative}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.08em;font-size:.85rem;color:var(--cyan)}
+.sound{border:1px solid #ffffff40;background:#ffffff14;color:white;border-radius:99px;padding:9px 13px;cursor:pointer}
+h1{font-size:clamp(2rem,6vw,4.2rem);line-height:.98;margin:20px 0 8px;text-shadow:0 5px 0 #432c91}
+.sub{color:#dce7ff;margin:0 0 22px;font-size:1.05rem}
+.panel{background:#ffffff12;border:1px solid #ffffff2d;border-radius:26px;padding:clamp(17px,4vw,30px);box-shadow:0 18px 50px #070c2d55;backdrop-filter:blur(8px)}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center}
+@media(max-width:650px){.hero{grid-template-columns:1fr}.mascot{min-height:140px}}
+.bigbtn{border:0;border-radius:15px;background:linear-gradient(135deg,var(--gold),#ff9c52);color:#35215b;font-size:1.05rem;font-weight:900;padding:14px 20px;cursor:pointer;box-shadow:0 5px 0 #b85c5c;transition:transform .15s}
+.bigbtn:hover{transform:translateY(-2px)}.bigbtn:active{transform:translateY(3px);box-shadow:0 2px 0 #b85c5c}
+.mascot{min-height:200px;display:grid;place-items:center;position:relative}
+.detective{font-size:clamp(6rem,16vw,9rem);filter:drop-shadow(0 10px 5px #050a2e60);animation:bob 2.2s ease-in-out infinite}
+.clock{position:absolute;font-size:3rem;right:8%;top:8%;animation:spin 8s linear infinite}
+.star{position:absolute;font-size:1.8rem;animation:twinkle 1.4s ease-in-out infinite alternate}
+.star.s1{left:8%;top:20%}.star.s2{right:12%;bottom:15%;animation-delay:.6s}
+@keyframes bob{50%{transform:translateY(-12px) rotate(2deg)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes twinkle{to{opacity:.35;transform:scale(.7) rotate(30deg)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.stat{background:#070d3155;border-radius:15px;padding:12px;text-align:center;border:1px solid #ffffff1c}.stat small{display:block;color:#bfcaff;font-size:.75rem}.stat strong{font-size:1.35rem}
+.progress{height:9px;background:#ffffff24;border-radius:99px;overflow:hidden;margin:14px 0 22px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));transition:width .3s}
+.stage-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.stage-title h2{margin:0;font-size:1.45rem}.badge{border-radius:99px;background:#58e3ed22;color:var(--cyan);padding:6px 10px;font-size:.8rem;font-weight:800}
+.playzone{margin:18px 0;padding:20px 12px;border-radius:20px;background:linear-gradient(120deg,#15245b,#402a7b);border:1px solid #ffffff26;text-align:center;position:relative;overflow:hidden}
+.playzone p{margin:5px 0 14px;color:#e1e8ff}.gems{display:flex;justify-content:center;gap:clamp(10px,4vw,26px);flex-wrap:wrap;min-height:90px;align-items:center}
+.gem{width:68px;height:68px;border:2px solid #ffffffa0;border-radius:22px;background:linear-gradient(145deg,#65eff0,#7a70ff);box-shadow:0 6px 0 #393c9e;cursor:pointer;font-size:2rem;animation:float 1.5s ease-in-out infinite alternate;transition:transform .2s}
+.gem:nth-child(2){animation-delay:.3s}.gem:nth-child(3){animation-delay:.6s}.gem:hover{transform:scale(1.12) rotate(-8deg)}.gem.found{opacity:.25;transform:scale(.65);pointer-events:none;filter:grayscale(1)}
+@keyframes float{to{transform:translateY(-9px) rotate(5deg)}}
+.question{font-size:clamp(1.1rem,3vw,1.45rem);line-height:1.45;font-weight:800;margin:22px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:550px){.answers{grid-template-columns:1fr}}
+.answer{background:#ffffff12;color:white;border:1px solid #ffffff3d;border-radius:14px;padding:14px;text-align:left;font-size:1rem;cursor:pointer;min-height:55px;transition:.15s}
+.answer:hover:not(:disabled){background:#ffffff26;transform:translateY(-2px)}.answer:disabled{cursor:default;opacity:.86}
+.answer.correct{background:#167d69;border-color:#6fffd5}.answer.wrong{background:#963e68;border-color:#ff9cbe}
+.feedback{margin:15px 0 0;padding:12px 14px;border-radius:12px;background:#070d3155;min-height:45px;line-height:1.4}
+.rowbtn{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hidden{display:none!important}.tiny{font-size:.85rem;color:#cbd5ff}.finish{text-align:center}.finish .trophy{font-size:5rem;animation:bob 2s infinite}
+footer{text-align:center;color:#b7c4f6;font-size:.8rem;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><div class="brand">🕵️ AKADEMI DETEKTIF • MATEMATIK TAHUN 2</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="sound" id="teacherBtn" type="button">🔐 Rekod Guru</button><button class="sound" id="soundBtn" type="button">🔊 Bunyi: ON</button></div></div>
+ <h1>Misi Detektif Masa</h1>
+ <p class="sub">Selesaikan cabaran mini, kumpul kristal masa, kemudian jawab soalan untuk membuka fail misteri!</p>
+
+ <section id="intro" class="panel hero">
+  <div><span class="badge">15 MISI • KUTIP MATA</span><h2>Jam misteri telah dicuri! ⏰</h2>
+   <p>Detektif kecil, bantu kami menyelesaikan semua 15 misi tentang <b>waktu dalam jam dan minit</b>.</p>
+   <p>🎮 <b>Cara bermain:</b> klik 3 kristal yang bergerak untuk membuka soalan. Jawapan betul mendapat <b>10 mata</b>. Cuba kumpul markah tertinggi!</p>
+   <div style="display:grid;gap:9px;max-width:420px;margin:16px 0"><label for="studentName"><b>Nama / kod murid</b></label><input id="studentName" maxlength="60" autocomplete="name" placeholder="Contoh: Aina / M02" style="padding:12px;border-radius:10px;border:1px solid #ffffff55;background:#10153b;color:white;font:inherit"><label for="studentClass"><b>Kelas</b></label><input id="studentClass" maxlength="40" placeholder="Contoh: Tahun 2 Kreatif" style="padding:12px;border-radius:10px;border:1px solid #ffffff55;background:#10153b;color:white;font:inherit"><p class="tiny" style="margin:0">Gunakan nama ringkas atau kod murid. Jangan masukkan nombor kad pengenalan atau maklumat sensitif.</p><p id="identityMsg" class="tiny" role="status"></p></div>
+   <button class="bigbtn" id="startBtn">MULA MISI 🚀</button>
+  </div>
+  <div class="mascot"><span class="star s1">✨</span><span class="star s2">⭐</span><span class="clock">⏱️</span><div class="detective">🕵️‍♀️</div></div>
+ </section>
+
+ <section id="game" class="hidden">
+  <div class="stats">
+   <div class="stat"><small>MISI</small><strong id="missionStat">1 / 15</strong></div>
+   <div class="stat"><small>MATA</small><strong id="scoreStat">0</strong></div>
+   <div class="stat"><small>KRISTAL</small><strong id="gemStat">0 / 3</strong></div>
+  </div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="panel">
+   <div class="stage-title"><span class="badge" id="phaseBadge">FASA 1 • CABARAN MINI</span><h2 id="phaseTitle">Kutip kristal masa!</h2></div>
+   <div id="playPhase">
+    <div class="playzone"><p>Klik ketiga-tiga kristal sebelum soalan dibuka!</p><div class="gems" id="gems"></div><p class="tiny">Setiap kristal yang dikutip mengaktifkan mesin masa ✨</p></div>
+   </div>
+   <div id="questionPhase" class="hidden">
+    <div class="question" id="questionText"></div>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback" aria-live="polite">Pilih satu jawapan yang paling tepat.</div>
+    <div class="rowbtn"><span class="tiny" id="answerHint">Jawapan betul = 10 mata</span><button class="bigbtn hidden" id="nextBtn">MISI SETERUSNYA ➜</button></div>
+   </div>
+  </div>
+ </section>
+
+ <section id="finish" class="panel finish hidden">
+  <div class="trophy" id="trophy">🏆</div><span class="badge">SEMUA MISI SELESAI</span>
+  <h2 id="finishTitle">Syabas, Detektif Masa!</h2><p id="finishText"></p>
+  <div class="stats"><div class="stat"><small>MARKAH</small><strong id="finalScore">0 / 150</strong></div><div class="stat"><small>JAWAPAN BETUL</small><strong id="finalCorrect">0 / 15</strong></div><div class="stat"><small>GRED MISI</small><strong id="finalGrade">⭐</strong></div></div>
+  <p id="saveStatus" class="feedback" role="status">Keputusan akan direkodkan secara automatik selepas sambungan pangkalan data disediakan.</p><button class="bigbtn" id="againBtn">MAIN SEMULA 🔁</button>
+ </section>
+ <section id="teacherPanel" class="panel hidden" style="margin-top:18px">
+  <div class="stage-title"><span class="badge">PAPAN PEMANTAUAN</span><h2>Rekod Pencapaian Murid</h2></div>
+  <p class="tiny">Log masuk menggunakan akaun Google guru yang dibenarkan dalam Firebase. Data dimuatkan terus daripada pangkalan data.</p>
+  <div class="rowbtn"><button id="teacherLoginBtn" class="bigbtn">LOG MASUK GURU GOOGLE</button><button id="refreshRecordsBtn" class="sound">Muat semula</button><button id="csvBtn" class="sound">Muat turun CSV</button></div>
+  <p id="teacherStatus" class="feedback" role="status">Sediakan konfigurasi Firebase untuk mengaktifkan papan ini.</p>
+  <div style="overflow-x:auto;margin-top:14px"><table id="recordsTable" style="width:100%;border-collapse:collapse;min-width:650px"><thead><tr><th style="text-align:left;padding:10px;border-bottom:1px solid #ffffff44">Tarikh</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ffffff44">Nama/kod</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ffffff44">Kelas</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ffffff44">Markah</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ffffff44">Betul</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ffffff44">Peratus</th></tr></thead><tbody id="recordsBody"><tr><td colspan="6" style="padding:10px">Belum dimuatkan.</td></tr></tbody></table></div>
+  <button id="closeTeacherBtn" class="sound" style="margin-top:14px">Tutup papan guru</button>
+ </section>
+ <footer>Tip: Baca soalan dengan teliti. Detektif hebat berfikir dahulu sebelum menjawab! 🧠</footer>
+</div>
+<script>
+const questions = [
+ {q:"Pukul 7:30 dibaca sebagai…",a:["Pukul tujuh setengah","Pukul tujuh suku","Pukul lapan setengah","Pukul enam setengah"],c:0},
+ {q:"Pukul 9:15 bersamaan…",a:["Sembilan setengah","Sembilan suku","Sepuluh suku","Lapan suku"],c:1},
+ {q:"Pukul 4:45 ialah…",a:["Pukul empat suku","Pukul empat setengah","Pukul lima kurang suku","Pukul lima setengah"],c:2},
+ {q:"Berapa minit dalam 1 jam?",a:["30 minit","45 minit","60 minit","100 minit"],c:2},
+ {q:"30 minit bersamaan…",a:["Suku jam","Setengah jam","Satu jam","Dua jam"],c:1},
+ {q:"Aina mula membaca pada pukul 2:00 petang dan membaca selama 1 jam. Bilakah Aina selesai?",a:["Pukul 2:30 petang","Pukul 3:00 petang","Pukul 3:30 petang","Pukul 4:00 petang"],c:1},
+ {q:"Kelas bermula pada pukul 8:00 pagi dan tamat pada pukul 9:00 pagi. Berapa lama kelas berlangsung?",a:["15 minit","30 minit","1 jam","2 jam"],c:2},
+ {q:"Amir mula bermain pada pukul 4:15 petang. Dia bermain selama 30 minit. Pukul berapakah dia selesai?",a:["4:30 petang","4:45 petang","5:00 petang","5:15 petang"],c:1},
+ {q:"Sebuah rancangan bermula pada pukul 8:30 malam dan berlangsung selama 30 minit. Bilakah rancangan tamat?",a:["8:45 malam","9:00 malam","9:15 malam","9:30 malam"],c:1},
+ {q:"Murid mula membuat latihan pada pukul 10:00 pagi dan selesai pada pukul 10:45 pagi. Berapa lamakah mereka membuat latihan?",a:["30 minit","45 minit","1 jam","1 jam 15 minit"],c:1},
+ {q:"Bas bertolak pada pukul 7:30 pagi. Perjalanan mengambil masa 1 jam. Bilakah bas tiba?",a:["8:00 pagi","8:15 pagi","8:30 pagi","9:30 pagi"],c:2},
+ {q:"Siti mula mengemas bilik pada pukul 5:00 petang dan selesai pada pukul 5:15 petang. Berapa lama dia mengemas?",a:["10 minit","15 minit","30 minit","45 minit"],c:1},
+ {q:"Latihan sukan bermula pada pukul 4:30 petang dan berlangsung selama 1 jam. Bilakah latihan tamat?",a:["5:00 petang","5:15 petang","5:30 petang","6:30 petang"],c:2},
+ {q:"Pukul 6:15 petang ditambah 15 minit menjadi…",a:["6:20 petang","6:30 petang","6:45 petang","7:15 petang"],c:1},
+ {q:"Filem bermula pada pukul 2:15 petang dan tamat pada pukul 3:15 petang. Berapa lama filem itu berlangsung?",a:["30 minit","45 minit","1 jam","1 jam 30 minit"],c:2}
+];
+let idx=0,score=0,correct=0,gems=0,answered=false,soundOn=true,audioCtx=null;
+const $=id=>document.getElementById(id);
+function tone(freq=550,dur=.12,type="sine",vol=.045){if(!soundOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+dur);o.stop(audioCtx.currentTime+dur)}catch(e){}}
+function fanfare(){tone(523,.13);setTimeout(()=>tone(659,.13),120);setTimeout(()=>tone(784,.22),240)}
+$("soundBtn").onclick=()=>{soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊 Bunyi: ON":"🔇 Bunyi: OFF";if(soundOn)tone(660)};
+$("startBtn").onclick=()=>{const n=$("studentName").value.trim(), c=$("studentClass").value.trim();if(!n||!c){$("identityMsg").textContent="Sila isi nama/kod murid dan kelas sebelum bermula.";return;}window.currentStudent={name:n,className:c};$("identityMsg").textContent="";idx=0;score=0;correct=0;$("intro").classList.add("hidden");$("finish").classList.add("hidden");$("game").classList.remove("hidden");renderMission();tone(700,.15);setTimeout(()=>tone(900,.18),120)};
+function renderMission(){gems=0;answered=false;$("missionStat").textContent=`${idx+1} / ${questions.length}`;$("scoreStat").textContent=score;$("gemStat").textContent="0 / 3";$("bar").style.width=(idx/questions.length*100)+"%";$("phaseBadge").textContent="FASA 1 • CABARAN MINI";$("phaseTitle").textContent="Kutip kristal masa!";$("playPhase").classList.remove("hidden");$("questionPhase").classList.add("hidden");$("nextBtn").classList.add("hidden");$("gems").innerHTML="";
+ const icons=["💎","🔮","⭐"];for(let i=0;i<3;i++){let b=document.createElement("button");b.className="gem";b.type="button";b.innerHTML=icons[(i+idx)%icons.length];b.setAttribute("aria-label","Kutip kristal "+(i+1));b.onclick=()=>{if(b.classList.contains("found"))return;b.classList.add("found");gems++;$("gemStat").textContent=`${gems} / 3`;tone(500+gems*120,.1,"triangle");if(gems===3){setTimeout(showQuestion,350)}};$("gems").appendChild(b)}
+}
+function showQuestion(){$("playPhase").classList.add("hidden");$("questionPhase").classList.remove("hidden");$("phaseBadge").textContent="FASA 2 • FAIL MISTERI";$("phaseTitle").textContent="Pilih jawapan yang tepat!";let item=questions[idx];$("questionText").textContent=(idx+1)+". "+item.q;$("answers").innerHTML="";$("feedback").textContent="Pilih satu jawapan yang paling tepat.";item.a.forEach((ans,i)=>{let b=document.createElement("button");b.className="answer";b.innerHTML="<b>"+String.fromCharCode(65+i)+".</b> "+ans;b.onclick=()=>chooseAnswer(i,b);$("answers").appendChild(b)});tone(720,.14)}
+function chooseAnswer(choice,btn){if(answered)return;answered=true;const item=questions[idx];[...$("answers").children].forEach((b,i)=>{b.disabled=true;if(i===item.c)b.classList.add("correct")});if(choice===item.c){score+=10;correct++;$("scoreStat").textContent=score;$("feedback").textContent="🎉 Tepat sekali! +10 mata. Detektif masa semakin hampir menyelesaikan misteri!";tone(740,.12);setTimeout(()=>tone(940,.18),110);fanfare()}else{btn.classList.add("wrong");$("feedback").textContent="Belum tepat. Jawapan yang betul ialah "+String.fromCharCode(65+item.c)+". "+item.a[item.c]+". Teruskan, setiap misi peluang untuk belajar!";tone(190,.25,"triangle")}
+$("nextBtn").classList.remove("hidden");$("nextBtn").textContent=idx===questions.length-1?"LIHAT KEPUTUSAN 🏆":"MISI SETERUSNYA ➜"}
+$("nextBtn").onclick=()=>{idx++;if(idx<questions.length)renderMission();else finishGame()};
+function finishGame(){$("game").classList.add("hidden");$("finish").classList.remove("hidden");$("bar").style.width="100%";$("finalScore").textContent=score+" / 150";$("finalCorrect").textContent=correct+" / 15";let grade=score>=130?"⭐⭐⭐":score>=90?"⭐⭐":"⭐";$("finalGrade").textContent=grade;$("finishText").textContent=`Awak berjaya menyelesaikan semua 15 misi dan mengumpul ${score} mata. ${correct} jawapan betul daripada 15 soalan. ${score===150?"Hebat! Awak Detektif Masa terunggul!":"Teruskan berlatih untuk meningkatkan kemahiran membaca waktu dan mengira tempoh masa."}`;$("finishTitle").textContent=score>=130?"Detektif Masa Terunggul!":score>=90?"Syabas, Detektif Hebat!":"Misi Selesai, Detektif!";fanfare();if(window.saveGameResult){window.saveGameResult({name:window.currentStudent?.name||"",className:window.currentStudent?.className||"",score,correct,total:questions.length,percent:Math.round(correct/questions.length*100),completedAt:new Date().toISOString()});}else{$("saveStatus").textContent="⚠️ Rekod automatik belum aktif. Guru perlu melengkapkan konfigurasi Firebase.";}}
+$("againBtn").onclick=()=>{$("finish").classList.add("hidden");$("intro").classList.remove("hidden");$("bar").style.width="0%";tone(500)}
+</script>
+
+<!-- FIREBASE SETUP: Replace the placeholder values below with your Firebase web app config. -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, signInAnonymously, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getDatabase, ref, push, get } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "GANTI_DENGAN_API_KEY",
+  authDomain: "GANTI_DENGAN_PROJECT_ID.firebaseapp.com",
+  databaseURL: "GANTI_DENGAN_DATABASE_URL",
+  projectId: "GANTI_DENGAN_PROJECT_ID",
+  appId: "GANTI_DENGAN_APP_ID"
+};
+const configured = !Object.values(firebaseConfig).some(v => String(v).startsWith("GANTI_DENGAN"));
+let auth=null, db=null, recordsCache=[];
+const el=id=>document.getElementById(id);
+function status(id,msg){const e=el(id);if(e)e.textContent=msg;}
+if(configured){
+  try { const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getDatabase(app); }
+  catch(e){ console.error(e); }
+}
+window.saveGameResult = async result => {
+  if(!configured||!auth||!db){status("saveStatus","⚠️ Rekod belum dihantar kerana Firebase belum dikonfigurasi.");return;}
+  try {
+    if(!auth.currentUser) await signInAnonymously(auth);
+    const record={...result,score:Number(result.score),correct:Number(result.correct),total:Number(result.total),percent:Number(result.percent),createdAt:Date.now()};
+    await push(ref(db,"misiDetektifMasa/records"),record);
+    status("saveStatus","✅ Keputusan berjaya direkodkan secara automatik. Terima kasih, Detektif!");
+  } catch(e){console.error(e);status("saveStatus","❌ Rekod gagal dihantar. Semak sambungan internet atau konfigurasi Firebase, kemudian maklumkan guru.");}
+};
+el("teacherBtn").addEventListener("click",()=>{el("teacherPanel").classList.toggle("hidden");el("teacherPanel").scrollIntoView({behavior:"smooth",block:"start"});});
+el("closeTeacherBtn").addEventListener("click",()=>el("teacherPanel").classList.add("hidden"));
+el("teacherLoginBtn").addEventListener("click",async()=>{
+  if(!configured||!auth){status("teacherStatus","Firebase belum dikonfigurasi. Lengkapkan tetapan dahulu.");return;}
+  try {
+    if(auth.currentUser) await signOut(auth);
+    const result=await signInWithPopup(auth,new GoogleAuthProvider());
+    if(!result.user.email){status("teacherStatus","Akaun ini tidak mempunyai e-mel Google yang boleh disahkan.");return;}
+    await loadRecords();
+  } catch(e){console.error(e);status("teacherStatus","Log masuk tidak berjaya. Pastikan Google Sign-in diaktifkan dan e-mel guru dibenarkan dalam Rules.");}
+});
+el("refreshRecordsBtn").addEventListener("click",loadRecords);
+async function loadRecords(){
+  if(!configured||!auth||!db){status("teacherStatus","Firebase belum dikonfigurasi.");return;}
+  try {
+    if(!auth.currentUser||!auth.currentUser.email){status("teacherStatus","Sila log masuk menggunakan akaun Google guru dahulu.");return;}
+    const snap=await get(ref(db,"misiDetektifMasa/records"));
+    recordsCache=[]; if(snap.exists()) snap.forEach(child=>recordsCache.push({id:child.key,...child.val()}));
+    recordsCache.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    const body=el("recordsBody");body.innerHTML="";
+    if(!recordsCache.length){body.innerHTML='<tr><td colspan="6" style="padding:10px">Belum ada rekod.</td></tr>';}
+    recordsCache.forEach(r=>{const tr=document.createElement("tr");[r.completedAt?new Date(r.completedAt).toLocaleString("ms-MY"):"—",r.name||"—",r.className||"—",`${r.score??0} / 150`,`${r.correct??0} / ${r.total??15}`,`${r.percent??0}%`].forEach(v=>{const td=document.createElement("td");td.textContent=v;td.style.padding="10px";td.style.borderBottom="1px solid #ffffff22";tr.appendChild(td)});body.appendChild(tr)});
+    status("teacherStatus",`✅ ${recordsCache.length} rekod dimuatkan. Akaun: ${auth.currentUser.email}`);
+  } catch(e){console.error(e);status("teacherStatus","❌ Tidak dapat membaca rekod. Semak e-mel guru dan Firebase Security Rules.");}
+}
+el("csvBtn").addEventListener("click",()=>{
+  if(!recordsCache.length){status("teacherStatus","Tiada rekod untuk dimuat turun. Log masuk dan muatkan rekod dahulu.");return;}
+  const cols=["Tarikh","Nama/kod murid","Kelas","Markah","Jawapan betul","Jumlah soalan","Peratus"];
+  const rows=recordsCache.map(r=>[r.completedAt?new Date(r.completedAt).toLocaleString("ms-MY"):"",r.name||"",r.className||"",r.score??0,r.correct??0,r.total??15,r.percent??0]);
+  const csv=[cols,...rows].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="rekod_misi_detektif_masa.csv";a.click();URL.revokeObjectURL(url);
+});
+if(!configured){status("saveStatus","ℹ️ Versi ini sudah mempunyai fungsi rekod automatik, tetapi perlu disambungkan kepada projek Firebase awak dahulu.");}
+</script>
+
+</body>
+</html>
