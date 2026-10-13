@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#09111f">
+<title>Decimal Beat Race | Matematik Tahun 3</title>
+<style>
+:root{--bg:#09111f;--panel:#111e31;--panel2:#172841;--cyan:#57f2e6;--pink:#ff4fa3;--yellow:#ffe66d;--text:#f7fbff;--muted:#afbed2;--green:#68f5a8;--red:#ff6b75}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#1a3155,transparent 35%),radial-gradient(circle at 90% 20%,#3c1642,transparent 28%),var(--bg);font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text);min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px clamp(15px,4vw,42px);border-bottom:1px solid #ffffff20;background:#07101bdd;position:sticky;top:0;z-index:3;backdrop-filter:blur(10px)}
+.logo{font-weight:1000;letter-spacing:.06em}.logo span{color:var(--cyan)}.sound-toggle{border:1px solid #ffffff30;background:#ffffff0d;color:white;border-radius:999px;padding:9px 13px;font-weight:800;cursor:pointer}
+main{max-width:1000px;margin:auto;padding:24px 17px 48px}.hero{display:grid;grid-template-columns:1fr .9fr;gap:22px;align-items:center;margin:12px 0 22px}
+.kicker{color:var(--cyan);font-size:.78rem;font-weight:900;letter-spacing:.17em;text-transform:uppercase}h1{font-size:clamp(2.5rem,7vw,5.2rem);line-height:.9;letter-spacing:-.065em;margin:14px 0}h1 span{color:var(--pink);text-shadow:3px 3px 0 #351532}.lead{color:#d0dced;line-height:1.65;max-width:54ch}
+.visual{border:1px solid #ffffff25;background:linear-gradient(140deg,#172c48,#17172f);border-radius:24px;padding:17px;box-shadow:0 22px 70px #0006}.visual svg{width:100%;height:auto;display:block}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{background:#ffffff0e;border:1px solid #ffffff20;border-radius:999px;padding:7px 10px;color:#dce6f6;font-size:.85rem}
+button{font:inherit;font-weight:850;border:0;cursor:pointer;border-radius:13px;padding:13px 17px;transition:transform .15s,filter .15s}button:hover{transform:translateY(-2px);filter:brightness(1.08)}button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}.primary{background:linear-gradient(100deg,var(--pink),#ff805e);color:white;box-shadow:0 5px 0 #912b5b}.secondary{background:#ffffff10;border:1px solid #ffffff25;color:white}.cyan{background:var(--cyan);color:#071820}.hidden{display:none!important}
+.panel{background:#101d30ed;border:1px solid #ffffff20;border-radius:22px;padding:clamp(18px,4vw,30px);margin-top:18px;box-shadow:0 18px 55px #0003}.panel h2{margin:7px 0 10px}.instructions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.instruction{padding:14px;border-radius:15px;background:#ffffff08;border:1px solid #ffffff15}.instruction b{display:block;color:var(--yellow);margin-bottom:6px}.barrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.progresswrap{height:9px;background:#ffffff19;border-radius:20px;overflow:hidden;flex:1;min-width:120px}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .25s}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.meta span{padding:8px 11px;border-radius:999px;background:#ffffff0c;color:var(--muted);font-size:.9rem}.question{font-size:clamp(1.25rem,3vw,1.8rem);line-height:1.4;margin:20px 0}.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.answer{background:#1b2b43;border:1px solid #ffffff20;color:white;text-align:left;min-height:60px}.answer.correct{background:#104b3a;border-color:var(--green)}.answer.wrong{background:#512339;border-color:var(--red)}.answer:disabled{opacity:1;cursor:default}.feedback{margin-top:15px;padding:14px;border-radius:13px;line-height:1.55}.good{background:#104b3a;border:1px solid #68f5a855}.bad{background:#512339;border:1px solid #ff6b7555}.next{display:flex;justify-content:flex-end;margin-top:17px}.result{text-align:center;padding:22px 0 10px}.big{font-size:clamp(3.5rem,10vw,5.5rem);font-weight:1000;color:var(--yellow);letter-spacing:-.06em}.medal{font-size:3.4rem}footer{text-align:center;color:#8193ad;padding:24px;font-size:.85rem}
+@media(max-width:720px){.hero{grid-template-columns:1fr}.instructions{grid-template-columns:1fr}.answers{grid-template-columns:1fr}header{align-items:flex-start}.logo{font-size:.9rem}}
+</style>
+</head>
+<body>
+<header><div class="logo">✦ DECIMAL <span>BEAT RACE</span></div><button class="sound-toggle" id="soundBtn" aria-pressed="true">🔊 Bunyi: ON</button></header>
+<main>
+<section class="hero" id="home">
+<div><div class="kicker">Math · Music · Mission</div><h1>KEJAR<br><span>SKOR!</span></h1>
+<p class="lead">Selamat datang ke Decimal Beat Race! Jawab soalan perpuluhan untuk mengumpul mata. Setiap jawapan ada bunyi, setiap pusingan bawa awak lebih dekat ke garisan penamat.</p>
+<button class="primary" id="startBtn">▶ MULA PERMAINAN</button>
+<div class="chips"><span class="chip">🔊 Kesan bunyi</span><span class="chip">🏆 15 soalan</span><span class="chip">📱 Mesra telefon</span></div>
+</div>
+<div class="visual">
+<svg viewBox="0 0 420 290" role="img" aria-label="Kereta futuristik berlumba di litar neon">
+<defs><linearGradient id="road" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#273b60"/><stop offset="1" stop-color="#101726"/></linearGradient><linearGradient id="car" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff4fa3"/><stop offset="1" stop-color="#ff9c6b"/></linearGradient></defs>
+<circle cx="334" cy="55" r="29" fill="#57f2e6" opacity=".8"/><circle cx="334" cy="55" r="44" fill="none" stroke="#57f2e6" opacity=".2" stroke-width="3"/>
+<path d="M0 170 L420 105 L420 290 L0 290Z" fill="url(#road)" stroke="#57f2e6" stroke-opacity=".5" stroke-width="2"/>
+<path d="M0 224 L420 160" stroke="#fff" stroke-opacity=".65" stroke-width="3" stroke-dasharray="20 17"/>
+<path d="M30 183 L390 126 M20 245 L390 188" stroke="#ff4fa3" stroke-opacity=".6" stroke-width="4"/>
+<g transform="translate(96 130) rotate(-8)"><ellipse cx="105" cy="84" rx="125" ry="13" fill="#0008"/><path d="M13 59 L42 32 Q60 21 98 23 L145 32 L182 55 L198 68 L188 80 L14 80 L0 69Z" fill="url(#car)" stroke="#ffd5e9" stroke-width="2"/><path d="M57 33 Q72 13 101 15 L133 27 L145 34Z" fill="#132b49" stroke="#57f2e6" stroke-width="3"/><path d="M8 59 L-13 55 L-7 45 L20 47Z" fill="#57f2e6"/><path d="M176 57 L205 55 L202 65 L185 68Z" fill="#ffe66d"/><circle cx="42" cy="78" r="17" fill="#0b101c" stroke="#a8b7d1" stroke-width="5"/><circle cx="158" cy="78" r="17" fill="#0b101c" stroke="#a8b7d1" stroke-width="5"/></g>
+<g transform="translate(28 28)"><rect width="80" height="22" rx="4" fill="#fff"/><path d="M0 0H27V11H0ZM27 11H54V22H27ZM54 0H80V11H54Z" fill="#10111a"/><path d="M0 11H27V22H0ZM54 11H80V22H54Z" fill="#10111a"/></g>
+<text x="25" y="275" fill="#57f2e6" font-size="13" font-weight="800" letter-spacing="3">LEVEL 03 / DECIMALS</text>
+</svg>
+<div class="chips"><span class="chip">🎵 Bunyi betul/salah</span><span class="chip">✨ Animasi neon</span></div>
+</div>
+</section>
+
+<section class="panel hidden" id="briefing">
+<div class="kicker">Race briefing</div><h2>Persediaan pelumba</h2><p>Tekan setiap kad untuk mendengar bunyi persediaan. Bila ketiga-tiganya dipilih, perlumbaan bermula!</p>
+<div class="instructions">
+<button class="instruction secondary" data-pit="0"><b>🔋 Kuasa</b>Semak bateri kereta</button>
+<button class="instruction secondary" data-pit="1"><b>🎵 Beat</b>Uji bunyi permainan</button>
+<button class="instruction secondary" data-pit="2"><b>🏁 Litar</b>Bersedia ke garisan mula</button>
+</div><p id="pitFeedback" class="feedback hidden" aria-live="polite"></p><div class="next"><button id="raceBtn" class="cyan hidden">MULA PUSINGAN →</button></div>
+</section>
+
+<section class="panel hidden" id="quiz">
+<div class="barrow"><div><div class="kicker">Pusingan <span id="lap">1</span> / 15</div><h2>Cabaran perpuluhan</h2></div><div class="progresswrap"><div class="progress" id="progress"></div></div></div>
+<div class="meta"><span>🏆 Mata: <b id="score">0</b></span><span>🎯 Jawapan betul = +10</span></div>
+<div class="question" id="question"></div><div class="answers" id="answers"></div>
+<div id="feedback" class="feedback hidden" aria-live="polite"></div><div class="next"><button id="nextBtn" class="cyan hidden">SETERUSNYA →</button></div>
+</section>
+
+<section class="panel hidden" id="result"><div class="result"><div class="medal" id="medal">🏆</div><div class="kicker">Race complete</div><h2 id="resultTitle">Syabas!</h2><div class="big"><span id="finalScore">0</span><span style="font-size:1.5rem;color:white"> / 150</span></div><p id="resultText"></p><button class="primary" id="replayBtn">↻ MAIN LAGI</button></div></section>
+</main><footer>DECIMAL BEAT RACE · Matematik Tahun 3 · Bunyi dijana dalam pelayar, tiada fail audio tambahan diperlukan.</footer>
+<script>
+const Q=[
+{q:"Apakah nilai digit 4 dalam nombor 3.45?",a:["4 persepuluh","4 perseratus","4 sa","4 puluh"],c:0,e:"Digit pertama selepas titik perpuluhan ialah tempat persepuluh."},
+{q:"Apakah nilai digit 7 dalam nombor 2.07?",a:["7 persepuluh","7 perseratus","7 sa","7 puluh"],c:1,e:"Digit kedua selepas titik perpuluhan ialah tempat perseratus."},
+{q:"Pilih nombor yang paling besar.",a:["0.5","0.35","0.8","0.45"],c:2,e:"0.8 bersamaan 0.80 dan merupakan nombor paling besar."},
+{q:"Pilih nombor yang paling kecil.",a:["0.62","0.26","0.52","0.66"],c:1,e:"0.26 paling kecil antara pilihan yang diberi."},
+{q:"Lengkapkan: 0.4 = ___ perseratus.",a:["4","40","400","0.04"],c:1,e:"0.4 = 0.40, iaitu 40 perseratus."},
+{q:"Apakah nombor perpuluhan bagi 6 persepuluh?",a:["0.06","6.0","0.6","0.006"],c:2,e:"6 persepuluh ditulis sebagai 0.6."},
+{q:"Susun dari kecil ke besar: 0.3, 0.12, 0.25.",a:["0.3, 0.25, 0.12","0.12, 0.25, 0.3","0.25, 0.12, 0.3","0.12, 0.3, 0.25"],c:1,e:"0.30 > 0.25 > 0.12, jadi susunan menaik ialah 0.12, 0.25, 0.30."},
+{q:"Berapakah 0.2 + 0.3?",a:["0.5","0.05","0.23","0.6"],c:0,e:"2 persepuluh + 3 persepuluh = 5 persepuluh."},
+{q:"Berapakah 0.7 − 0.4?",a:["0.11","0.3","0.4","0.2"],c:1,e:"7 persepuluh − 4 persepuluh = 3 persepuluh."},
+{q:"Lengkapkan: 0.25 ___ 0.52.",a:[">","<","=","+"],c:1,e:"0.25 lebih kecil daripada 0.52, jadi simbol yang betul ialah <."},
+{q:"Antara berikut, yang manakah sama nilai dengan 0.6?",a:["0.06","0.60","0.66","6.0"],c:1,e:"0.6 = 0.60. Sifar di hujung bahagian perpuluhan tidak mengubah nilai."},
+{q:"Aina berlari sejauh 0.4 km pada pagi dan 0.3 km pada petang. Berapakah jumlah jaraknya?",a:["0.1 km","0.7 km","0.43 km","1.0 km"],c:1,e:"0.4 km + 0.3 km = 0.7 km."},
+{q:"Pilih susunan dari besar ke kecil.",a:["0.14, 0.41, 0.4","0.41, 0.4, 0.14","0.4, 0.14, 0.41","0.14, 0.4, 0.41"],c:1,e:"0.41 > 0.40 > 0.14."},
+{q:"Berapakah 0.35 + 0.20?",a:["0.37","0.55","0.52","0.15"],c:1,e:"35 perseratus + 20 perseratus = 55 perseratus, iaitu 0.55."},
+{q:"Kereta lumba bergerak sejauh 0.9 km dan kemudian 0.5 km. Berapakah jumlah jarak?",a:["1.4 km","0.14 km","1.0 km","0.45 km"],c:0,e:"0.9 + 0.5 = 1.4 km."}
+];
+const $=id=>document.getElementById(id);let idx=0,score=0,answered=false,soundOn=true,ctx=null;const selected=new Set();
+function audio(){if(!soundOn)return null;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume();return ctx}catch(e){return null}}
+function tone(freq,duration=.12,type="sine",gain=.06,delay=0){const c=audio();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+delay);g.gain.setValueAtTime(.0001,c.currentTime+delay);g.gain.exponentialRampToValueAtTime(gain,c.currentTime+delay+.015);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+delay+duration);o.connect(g);g.connect(c.destination);o.start(c.currentTime+delay);o.stop(c.currentTime+delay+duration+.03)}
+function sfx(kind){if(!soundOn)return;if(kind==="good"){tone(660,.13,"triangle",.07);tone(880,.18,"triangle",.07,.12);tone(1100,.2,"triangle",.06,.25)}else if(kind==="bad"){tone(220,.2,"sawtooth",.045);tone(170,.24,"sawtooth",.04,.16)}else if(kind==="click"){tone(500,.07,"square",.025)}else if(kind==="start"){[440,554,659,880].forEach((f,i)=>tone(f,.18,"triangle",.055,i*.12))}else if(kind==="win"){[523,659,784,1047].forEach((f,i)=>tone(f,.28,"triangle",.065,i*.16))}}
+$("soundBtn").addEventListener("click",()=>{soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊 Bunyi: ON":"🔇 Bunyi: OFF";$("soundBtn").setAttribute("aria-pressed",String(soundOn));if(soundOn)sfx("good")});
+$("startBtn").addEventListener("click",()=>{audio();sfx("start");$("home").classList.add("hidden");$("briefing").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})});
+document.querySelectorAll("[data-pit]").forEach(b=>b.addEventListener("click",()=>{audio();const n=b.dataset.pit;if(selected.has(n))return;selected.add(n);b.classList.add("correct");b.disabled=true;sfx("click");$("pitFeedback").textContent=`Bagus! ${selected.size}/3 persediaan selesai.`;$("pitFeedback").className="feedback good";if(selected.size===3){$("raceBtn").classList.remove("hidden");sfx("start")}}));
+$("raceBtn").addEventListener("click",()=>{$("briefing").classList.add("hidden");$("quiz").classList.remove("hidden");render();window.scrollTo({top:0,behavior:"smooth"})});
+function render(){answered=false;const q=Q[idx];$("lap").textContent=idx+1;$("progress").style.width=(idx/Q.length*100)+"%";$("question").textContent=q.q;$("answers").innerHTML="";$("feedback").className="feedback hidden";$("nextBtn").classList.add("hidden");q.a.forEach((v,i)=>{const b=document.createElement("button");b.className="answer";b.textContent=String.fromCharCode(65+i)+". "+v;b.addEventListener("click",()=>choose(i,b));$("answers").appendChild(b)})}
+function choose(n,clicked){if(answered)return;answered=true;const q=Q[idx],buttons=[...$("answers").querySelectorAll("button")];buttons.forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correct")});if(n===q.c){score+=10;$("score").textContent=score;$("feedback").textContent="Betul! +10 mata. "+q.e;$("feedback").className="feedback good";sfx("good")}else{clicked.classList.add("wrong");$("feedback").textContent="Belum tepat. Jawapan betul: "+q.a[q.c]+". "+q.e;$("feedback").className="feedback bad";sfx("bad")}$("nextBtn").classList.remove("hidden");$("progress").style.width=((idx+1)/Q.length*100)+"%"}
+$("nextBtn").addEventListener("click",()=>{idx++;if(idx<Q.length)render();else finish()});
+function finish(){$("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("finalScore").textContent=score;if(score>=120){$("medal").textContent="🏆";$("resultTitle").textContent="Juara Beat Race!";$("resultText").textContent="Hebat! Awak sangat menguasai cabaran perpuluhan.";sfx("win")}else if(score>=80){$("medal").textContent="🥈";$("resultTitle").textContent="Perlumbaan Cemerlang!";$("resultText").textContent="Bagus! Teruskan latihan untuk skor lebih tinggi.";sfx("good")}else{$("medal").textContent="🏁";$("resultTitle").textContent="Terus Berlatih!";$("resultText").textContent="Semak penerangan jawapan dan cuba lagi.";sfx("click")}}
+$("replayBtn").addEventListener("click",()=>{idx=0;score=0;answered=false;selected.clear();$("score").textContent="0";$("result").classList.add("hidden");$("quiz").classList.add("hidden");$("briefing").classList.add("hidden");$("home").classList.remove("hidden");document.querySelectorAll("[data-pit]").forEach(b=>{b.disabled=false;b.classList.remove("correct")});$("pitFeedback").className="feedback hidden";$("raceBtn").classList.add("hidden");$("progress").style.width="0";window.scrollTo({top:0,behavior:"smooth"});sfx("click")});
+</script>
+</body>
+</html>
