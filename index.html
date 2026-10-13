@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e10600">
+  <title>Decimal Grand Prix | Matematik Tahun 3</title>
+  <style>
+    :root {
+      --red: #e10600;
+      --dark: #101116;
+      --panel: #1b1d25;
+      --lime: #c8ff00;
+      --white: #f7f7f8;
+      --muted: #b9bbc5;
+      --green: #58e39b;
+      --orange: #ffbd59;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--white);
+      background: radial-gradient(circle at top, #343744 0, #171820 42%, #090a0e 100%);
+      min-height: 100vh;
+    }
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding: 16px clamp(16px, 4vw, 42px); border-bottom: 1px solid #ffffff20;
+      background: #0b0c10d9; position: sticky; top: 0; z-index: 5; backdrop-filter: blur(10px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: .06em; }
+    .flag { width: 34px; height: 24px; background: conic-gradient(#fff 25%, #111 0 50%, #fff 0 75%, #111 0); background-size: 16px 16px; border: 2px solid #fff; transform: skew(-8deg); }
+    .brand span { color: var(--lime); }
+    .top-pill { border: 1px solid #ffffff2b; border-radius: 999px; padding: 8px 12px; color: var(--muted); font-size: .82rem; }
+    main { max-width: 1080px; margin: 0 auto; padding: 26px 18px 52px; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; margin: 10px 0 26px; }
+    .eyebrow { color: var(--lime); font-size: .78rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { font-size: clamp(2.2rem, 6vw, 4.7rem); line-height: .95; margin: 12px 0 16px; letter-spacing: -.05em; }
+    h1 .accent { color: var(--red); text-shadow: 3px 3px 0 #fff; }
+    .lead { color: #d7d8de; line-height: 1.65; max-width: 58ch; }
+    .hero-card { background: linear-gradient(145deg, #282b35, #13141a); border: 1px solid #ffffff20; border-radius: 22px; padding: 22px; box-shadow: 0 18px 50px #0007; }
+    .track { height: 14px; border-radius: 8px; background: repeating-linear-gradient(90deg, #fff 0 22px, #111 22px 44px); margin: 12px 0 18px; }
+    .car-scene { position: relative; height: 150px; overflow: hidden; border-radius: 16px; background: linear-gradient(#697789, #d2d5d8 56%, #393b43 57%, #17181d 100%); }
+    .sun { position: absolute; right: 15%; top: 18px; width: 38px; height: 38px; border-radius: 50%; background: #ffe7a0; }
+    .grandstand { position: absolute; left: 0; right: 0; top: 56px; height: 28px; background: repeating-linear-gradient(90deg, #e10600 0 8px, #f3f3f3 8px 16px, #25252b 16px 24px); opacity: .8; }
+    .road { position: absolute; bottom: 0; height: 54px; left: 0; right: 0; background: #25262c; border-top: 4px solid #f5f5f5; }
+    .road::after { content: ""; position: absolute; left: 0; right: 0; top: 24px; border-top: 3px dashed #fff; }
+    .car { position: absolute; left: 30%; bottom: 24px; width: 150px; height: 30px; background: var(--red); border-radius: 30px 48px 10px 10px; transform: skew(-12deg); box-shadow: 0 5px 0 #8c0703; animation: drive 3s ease-in-out infinite alternate; }
+    .car::before { content: ""; position: absolute; left: 44px; top: -17px; width: 52px; height: 23px; background: #e10600; border: 4px solid #17181d; border-radius: 18px 18px 2px 2px; }
+    .car::after { content: ""; position: absolute; left: 19px; bottom: -9px; width: 28px; height: 15px; border-radius: 50%; background: #090a0e; border: 4px solid #777; box-shadow: 90px 0 0 -1px #090a0e, 90px 0 0 3px #777; }
+    @keyframes drive { from { left: 12%; } to { left: 54%; } }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .stat { background: #ffffff0b; padding: 12px; border-radius: 12px; text-align: center; }
+    .stat strong { display: block; color: var(--lime); font-size: 1.3rem; }
+    .stat small { color: var(--muted); }
+    .panel { background: #171920; border: 1px solid #ffffff20; border-radius: 20px; padding: clamp(18px, 3vw, 28px); margin-top: 18px; }
+    .panel h2 { margin-top: 0; }
+    .instructions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+    .instruction { padding: 15px; background: #ffffff09; border-radius: 14px; border: 1px solid #ffffff12; }
+    .instruction b { display: block; color: var(--lime); margin-bottom: 6px; }
+    button { font: inherit; font-weight: 800; cursor: pointer; border: 0; border-radius: 12px; padding: 13px 18px; transition: transform .15s, filter .15s; }
+    button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    button:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+    .primary { background: var(--red); color: white; box-shadow: 0 5px 0 #850700; }
+    .secondary { background: #2c2e38; color: white; border: 1px solid #ffffff24; }
+    .lime { background: var(--lime); color: #111; }
+    .hidden { display: none !important; }
+    .section-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .progress-wrap { height: 9px; background: #ffffff18; border-radius: 20px; overflow: hidden; flex: 1; min-width: 120px; }
+    .progress { height: 100%; width: 0%; background: var(--lime); transition: width .25s; }
+    .quiz-meta { display: flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: .9rem; margin: 16px 0; }
+    .quiz-meta span { background: #ffffff0c; border-radius: 999px; padding: 8px 11px; }
+    .question { font-size: clamp(1.25rem, 3vw, 1.8rem); line-height: 1.4; margin: 20px 0; }
+    .answers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .answer { text-align: left; min-height: 62px; color: white; background: #272a34; border: 1px solid #ffffff20; }
+    .answer.correct { background: #12452f; border-color: var(--green); }
+    .answer.wrong { background: #501e20; border-color: #ff6b6b; }
+    .answer:disabled { cursor: default; opacity: 1; }
+    .feedback { margin-top: 16px; border-radius: 12px; padding: 14px; line-height: 1.5; }
+    .feedback.good { background: #12452f; border: 1px solid #58e39b55; }
+    .feedback.bad { background: #501e20; border: 1px solid #ff6b6b55; }
+    .next-row { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .result { text-align: center; padding: 22px 0 8px; }
+    .result .big-score { font-size: clamp(3rem, 10vw, 5rem); font-weight: 900; color: var(--lime); letter-spacing: -.05em; }
+    .medal { font-size: 3rem; }
+    footer { text-align: center; color: #9295a1; padding: 22px; font-size: .85rem; }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; }
+      .instructions { grid-template-columns: 1fr; }
+      .answers { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .stats { gap: 7px; }
+      .stat { padding: 10px 5px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="flag" aria-hidden="true"></div><div>DECIMAL <span>GRAND PRIX</span></div></div>
+    <div class="top-pill">MATEMATIK TAHUN 3 · MISI PERPULUHAN</div>
+  </header>
+
+  <main>
+    <section class="hero" id="intro">
+      <div>
+        <div class="eyebrow">Ready · Set · Calculate!</div>
+        <h1>JOM LUMBA<br><span class="accent">PERPULUHAN</span></h1>
+        <p class="lead">Selamat datang ke Decimal Grand Prix! Buktikan kemahiran awak dalam nombor perpuluhan. Selesaikan cabaran, kumpul mata dan bawa kereta lumba ke garisan penamat.</p>
+        <button class="primary" id="startBtn">MULA PERLUMBAAN →</button>
+      </div>
+      <div class="hero-card">
+        <div class="eyebrow">Circuit 03 · Decimal Zone</div>
+        <div class="track"></div>
+        <div class="car-scene" aria-label="Ilustrasi kereta lumba di litar">
+          <div class="sun"></div><div class="grandstand"></div><div class="road"></div><div class="car"></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>15</strong><small>Soalan</small></div>
+          <div class="stat"><strong>150</strong><small>Mata maksimum</small></div>
+          <div class="stat"><strong>🏁</strong><small>Garisan penamat</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="pitstop">
+      <div class="eyebrow">Pit Stop Challenge</div>
+      <h2>Isi minyak sebelum berlumba!</h2>
+      <p>Pilih ketiga-tiga token pit stop untuk membuka litar. Setiap pilihan betul membantu awak bersedia untuk cabaran perpuluhan.</p>
+      <div class="instructions">
+        <div class="instruction"><b>01 · Fokus</b>Baca setiap soalan dengan teliti.</div>
+        <div class="instruction"><b>02 · Kira</b>Gunakan nilai tempat nombor perpuluhan.</div>
+        <div class="instruction"><b>03 · Menang</b>Jawab 15 soalan dan kumpul mata!</div>
+      </div>
+      <div class="answers" id="pitAnswers">
+        <button class="answer" data-pit="0">🔧 Tayar baharu</button>
+        <button class="answer" data-pit="1">⛽ Isi minyak</button>
+        <button class="answer" data-pit="2">🏁 Semak litar</button>
+      </div>
+      <p id="pitFeedback" class="feedback hidden" aria-live="polite"></p>
+      <div class="next-row"><button class="lime hidden" id="raceBtn">MASUK LITAR →</button></div>
+    </section>
+
+    <section class="panel hidden" id="quiz">
+      <div class="section-head">
+        <div><div class="eyebrow">Lap <span id="lapNum">1</span> / 15</div><h2 style="margin:7px 0 0">Cabaran Perpuluhan</h2></div>
+        <div class="progress-wrap" aria-label="Kemajuan"><div class="progress" id="progress"></div></div>
+      </div>
+      <div class="quiz-meta"><span>🏆 Mata: <b id="score">0</b></span><span>🚦 Setiap jawapan betul: +10</span></div>
+      <div id="question" class="question"></div>
+      <div class="answers" id="answers"></div>
+      <div id="feedback" class="feedback hidden" aria-live="polite"></div>
+      <div class="next-row"><button class="lime hidden" id="nextBtn">SOALAN SETERUSNYA →</button></div>
+    </section>
+
+    <section class="panel hidden" id="result">
+      <div class="result">
+        <div class="medal" id="medal">🏆</div>
+        <div class="eyebrow">Perlumbaan Tamat</div>
+        <h2 id="resultTitle">Syabas, pelumba!</h2>
+        <div class="big-score"><span id="finalScore">0</span><span style="font-size:1.6rem"> / 150</span></div>
+        <p id="resultText"></p>
+        <button class="primary" id="replayBtn">CUBA LAGI ↻</button>
+      </div>
+    </section>
+  </main>
+  <footer>DECIMAL GRAND PRIX · Matematik Tahun 3 · Belajar, kira dan berlumba!</footer>
+
+  <script>
+    const questions = [
+      { q: "Apakah nilai digit 4 dalam nombor 3.45?", a: ["4 persepuluh", "4 perseratus", "4 sa", "4 puluh"], correct: 0, exp: "Digit pertama selepas titik perpuluhan ialah tempat persepuluh. Jadi, 4 bernilai 4 persepuluh." },
+      { q: "Apakah nilai digit 7 dalam nombor 2.07?", a: ["7 persepuluh", "7 perseratus", "7 sa", "7 puluh"], correct: 1, exp: "Digit kedua selepas titik perpuluhan ialah tempat perseratus. Jadi, 7 bernilai 7 perseratus." },
+      { q: "Pilih nombor yang paling besar.", a: ["0.5", "0.35", "0.8", "0.45"], correct: 2, exp: "0.8 bersamaan 0.80, jadi nilainya lebih besar daripada 0.50, 0.45 dan 0.35." },
+      { q: "Pilih nombor yang paling kecil.", a: ["0.62", "0.26", "0.52", "0.66"], correct: 1, exp: "0.26 paling kecil kerana 2 persepuluh lebih kecil daripada 5 atau 6 persepuluh." },
+      { q: "Lengkapkan: 0.4 = ___ perseratus.", a: ["4", "40", "400", "0.04"], correct: 1, exp: "0.4 = 0.40, iaitu 40 perseratus." },
+      { q: "Apakah nombor perpuluhan bagi 6 persepuluh?", a: ["0.06", "6.0", "0.6", "0.60"], correct: 2, exp: "6 persepuluh ditulis sebagai 0.6. (0.60 juga sama nilainya.)" },
+      { q: "Susun dari kecil ke besar: 0.3, 0.12, 0.25.", a: ["0.3, 0.25, 0.12", "0.12, 0.25, 0.3", "0.25, 0.12, 0.3", "0.12, 0.3, 0.25"], correct: 1, exp: "Tulis sebagai 0.30, 0.12 dan 0.25. Susunan menaik ialah 0.12, 0.25, 0.30." },
+      { q: "Berapakah 0.2 + 0.3?", a: ["0.5", "0.05", "0.23", "0.6"], correct: 0, exp: "2 persepuluh + 3 persepuluh = 5 persepuluh, iaitu 0.5." },
+      { q: "Berapakah 0.7 - 0.4?", a: ["0.11", "0.3", "0.4", "0.2"], correct: 1, exp: "7 persepuluh − 4 persepuluh = 3 persepuluh, iaitu 0.3." },
+      { q: "Lengkapkan: 0.25 ___ 0.52.", a: [">", "<", "=", "+"], correct: 1, exp: "0.25 lebih kecil daripada 0.52, jadi simbol yang betul ialah <." },
+      { q: "Antara berikut, yang manakah sama nilai dengan 0.6?", a: ["0.06", "0.60", "0.66", "6.0"], correct: 1, exp: "Menambah sifar di hujung bahagian perpuluhan tidak mengubah nilai: 0.6 = 0.60." },
+      { q: "Aina berlari sejauh 0.4 km pada pagi dan 0.3 km pada petang. Berapakah jumlah jaraknya?", a: ["0.1 km", "0.7 km", "0.43 km", "1.0 km"], correct: 1, exp: "0.4 km + 0.3 km = 0.7 km." },
+      { q: "Pilih susunan dari besar ke kecil.", a: ["0.14, 0.41, 0.4", "0.41, 0.4, 0.14", "0.4, 0.14, 0.41", "0.14, 0.4, 0.41"], correct: 1, exp: "0.41 > 0.40 > 0.14. Ingat, 0.4 sama dengan 0.40." },
+      { q: "Berapakah 0.35 + 0.20?", a: ["0.37", "0.55", "0.52", "0.15"], correct: 1, exp: "35 perseratus + 20 perseratus = 55 perseratus, iaitu 0.55." },
+      { q: "Kereta lumba bergerak sejauh 0.9 km dan kemudian 0.5 km. Berapakah jumlah jarak?", a: ["1.4 km", "0.14 km", "1.0 km", "0.45 km"], correct: 0, exp: "0.9 + 0.5 = 1.4 km." }
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    let current = 0, score = 0, answered = false;
+    const pitChosen = new Set();
+
+    $("startBtn").addEventListener("click", () => {
+      $("intro").classList.add("hidden");
+      $("pitstop").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.querySelectorAll("[data-pit]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const n = btn.dataset.pit;
+        if (pitChosen.has(n)) return;
+        pitChosen.add(n);
+        btn.classList.add("correct");
+        btn.disabled = true;
+        $("pitFeedback").textContent = `Bagus! ${pitChosen.size}/3 persediaan telah disiapkan.`;
+        $("pitFeedback").classList.remove("hidden", "bad");
+        $("pitFeedback").classList.add("good");
+        if (pitChosen.size === 3) $("raceBtn").classList.remove("hidden");
+      });
+    });
+
+    $("raceBtn").addEventListener("click", () => {
+      $("pitstop").classList.add("hidden");
+      $("quiz").classList.remove("hidden");
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    function renderQuestion() {
+      answered = false;
+      const item = questions[current];
+      $("lapNum").textContent = current + 1;
+      $("progress").style.width = `${(current / questions.length) * 100}%`;
+      $("question").textContent = item.q;
+      $("answers").innerHTML = "";
+      $("feedback").className = "feedback hidden";
+      $("nextBtn").classList.add("hidden");
+      item.a.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.className = "answer";
+        btn.textContent = `${String.fromCharCode(65 + index)}. ${answer}`;
+        btn.addEventListener("click", () => chooseAnswer(index, btn));
+        $("answers").appendChild(btn);
+      });
+    }
+
+    function chooseAnswer(index, clicked) {
+      if (answered) return;
+      answered = true;
+      const item = questions[current];
+      const buttons = [...$("answers").querySelectorAll("button")];
+      buttons.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === item.correct) btn.classList.add("correct");
+      });
+      const correct = index === item.correct;
+      if (correct) {
+        score += 10;
+        $("score").textContent = score;
+        $("feedback").textContent = `Betul! +10 mata. ${item.exp}`;
+        $("feedback").className = "feedback good";
+      } else {
+        clicked.classList.add("wrong");
+        $("feedback").textContent = `Belum tepat. Jawapan yang betul ialah ${item.a[item.correct]}. ${item.exp}`;
+        $("feedback").className = "feedback bad";
+      }
+      $("nextBtn").classList.remove("hidden");
+      $("progress").style.width = `${((current + 1) / questions.length) * 100}%`;
+    }
+
+    $("nextBtn").addEventListener("click", () => {
+      current++;
+      if (current < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      $("quiz").classList.add("hidden");
+      $("result").classList.remove("hidden");
+      $("finalScore").textContent = score;
+      $("progress").style.width = "100%";
+      if (score >= 120) {
+        $("medal").textContent = "🏆";
+        $("resultTitle").textContent = "Juara Grand Prix!";
+        $("resultText").textContent = "Hebat! Awak sangat menguasai cabaran perpuluhan. Teruskan usaha!";
+      } else if (score >= 80) {
+        $("medal").textContent = "🥈";
+        $("resultTitle").textContent = "Perlumbaan Cemerlang!";
+        $("resultText").textContent = "Bagus! Awak sudah memahami banyak konsep perpuluhan. Cuba lagi untuk skor lebih tinggi.";
+      } else {
+        $("medal").textContent = "🏁";
+        $("resultTitle").textContent = "Terus Berlatih!";
+        $("resultText").textContent = "Setiap cubaan membantu awak belajar. Semak penerangan jawapan dan cuba sekali lagi!";
+      }
+    }
+
+    $("replayBtn").addEventListener("click", () => {
+      current = 0; score = 0; answered = false; pitChosen.clear();
+      $("score").textContent = "0";
+      $("result").classList.add("hidden");
+      $("quiz").classList.add("hidden");
+      $("pitstop").classList.add("hidden");
+      $("intro").classList.remove("hidden");
+      document.querySelectorAll("[data-pit]").forEach((btn) => {
+        btn.disabled = false;
+        btn.classList.remove("correct");
+      });
+      $("pitFeedback").className = "feedback hidden";
+      $("raceBtn").classList.add("hidden");
+      $("progress").style.width = "0%";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
